@@ -4,18 +4,29 @@ $(document).ready(function(){
        var windowScrollPosTop = $(window).scrollTop();
        var windowScrollPosBottom = windowHeight + windowScrollPosTop
 
-$.fn.revealOnScroll=function(){
+$.fn.revealOnScroll=function(direction,speed){
     return (this).each(() => {
        //$(this).hide();
 if(!$(this).hasClass('hidden')){
-       $(this).css("opacity",0).addClass('hidden');
+    if(direction=="right"){
+        $(this).css({
+            "opacity":0,
+            "right":"700px"
+        })
+    }else{
+        $(this).css({
+            "opacity":0,
+            "right":"-700px"
+        })
+    }
+       $(this).addClass('hidden');
     }
        var objectOffset = $(this).offset();
        var objectOffsetTop = objectOffset.top;
 
 if(!$(this).hasClass('animation-complete')){
     if(windowScrollPosBottom > objectOffsetTop){
-        $(this).animate({"opacity":1}, 3000).addClass("animation-complete");
+        $(this).animate({"opacity":1, "right":0}, speed).addClass("animation-complete");
    }
 }
         
@@ -24,9 +35,6 @@ if(!$(this).hasClass('animation-complete')){
 }//end our function here....
 
 
-$("#features").revealOnScroll();
-
-$('.example-photo').revealOnScroll();
 
 
     // $('.example-photo').css("opacity",0)
@@ -36,6 +44,13 @@ $('.example-photo').revealOnScroll();
         windowScrollPosTop = $(window).scrollTop();
         windowScrollPosBottom = windowHeight + windowScrollPosTop
        
+
+        $("#features").revealOnScroll("right");
+        $('.example-photo').revealOnScroll("left");
+$('.girl').revealOnScroll("left",3000);
+$('.cat').revealOnScroll("right",800);
+
+
 /* 
        var objectOffset = $('.example-photo').offset();
        var objectOffsetTop = objectOffset.top;
